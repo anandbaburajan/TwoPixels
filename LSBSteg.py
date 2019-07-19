@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 # coding:UTF-8
 """LSBSteg.py
+
 Usage:
   LSBSteg.py encode -i <input> -o <output> -f <file>
   LSBSteg.py decode -i <input> -o <output>
+
 Options:
   -h, --help                Show this help
   --version                 Show the version
@@ -110,13 +112,16 @@ class LSBSteg():
     def decode_text(self):
         ls = self.read_bits(16) #Read the text size in bytes
         l = int(ls,2)
-        i = 0
-        unhideTxt = ""
-        while i < l: #Read all bytes of the text
-            tmp = self.read_byte() #So one byte
-            i += 1
-            unhideTxt += chr(int(tmp,2)) #Every chars concatenated to str
-        return unhideTxt
+        if l==11: #If the 11 byte video ID is present
+            i = 0
+            unhideTxt = ""
+            while i < l: #Read all bytes of the text
+                tmp = self.read_byte() #So one byte
+                i += 1
+                unhideTxt += chr(int(tmp,2)) #Every chars concatenated to str
+            return unhideTxt
+        else: #If video's ID not present
+            return 0
 
     def encode_image(self, imtohide):
         w = imtohide.width
