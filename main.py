@@ -35,5 +35,9 @@ def main():
     img_encoded = steg.encode_text("11_byte_ID_")
     cv2.imwrite("en_img.png", img_encoded)
 
+    im = cv2.imread("img.png")
+    steg = LSBSteg(im)
+    print("Video ID:",steg.decode_text())
+
 if __name__=="__main__":
     main()
