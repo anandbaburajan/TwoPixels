@@ -22,7 +22,8 @@ class VideoID():
 
     def decode_bit(self):
         hsv_img = self.image.convert('HSV')
-        a = hsv_img.getpixel((0,0))[2] - hsv_img.getpixel((self.width-1, self.height-1))[2]
+        pxl = hsv_img.load()
+        a = pxl[0,0][2] - pxl[self.width-1, self.height-1][2]
         if a<0:
             return 0
         else:
