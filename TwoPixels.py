@@ -1,7 +1,7 @@
 """
 Usage:
-  test.py encode -i <input> -o <output> -t <text>
-  test.py decode -i <input>
+  TwoPixels.py encode -i <input> -o <output> -t <text>
+  TwoPixels.py decode -i <input>
 
 Options:
   -h, --help                Show this help
