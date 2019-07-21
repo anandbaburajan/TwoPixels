@@ -42,6 +42,30 @@ class Video():
         else:
             return '1'
 
+def encode_vid(vid, result, text):
+    cap = cv2.VideoCapture(vid)
+    fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
+    out = cv2.VideoWriter(result, fourcc, 30.0, (int(cap.get(3)), int(cap.get(4))))
+    bin_text = "".join(f"{ord(k):08b}" for k in text)
+    bin_text = bin_text + "0010001100100011"
+    i=0
+    while(cap.isOpened()):
+        ret, frame = cap.read()
+        if not ret:
+            break
+        if  i!=(len(bin_text)-1):
+            img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            pil_frame = Video(Image.fromarray(img))
+            pil_frame_en = pil_frame.encode_bit(bin_text[i])
+            frame_en = cv2.cvtColor(np.array(pil_frame_en), cv2.COLOR_RGB2BGR)
+            out.write(frame_en)
+            i+=1
+        else:
+            out.write(frame)
+    cap.release()
+    out.release()
+    cv2.destroyAllWindows()
+
 def main():
     args = docopt.docopt(__doc__)
     input = args["--in"]
