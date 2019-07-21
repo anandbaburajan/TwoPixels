@@ -66,6 +66,27 @@ def encode_vid(vid, result, text):
     out.release()
     cv2.destroyAllWindows()
 
+def decode_vid(vid):
+    bin_text=""
+    cap = cv2.VideoCapture(vid)
+    i=0
+    while(cap.isOpened()):
+        ret, frame = cap.read()
+        if not ret:
+            break
+        if "0010001100100011" not in bin_text:
+            img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+            pil_frame = Video(Image.fromarray(img))
+            bin_text = bin_text + pil_frame.decode_bit()
+            i+=1
+        else:
+            break
+    cap.release()
+    cv2.destroyAllWindows()
+    bin_text = bin_text[0:-16]
+    text=''.join(chr(int(bin_text[k:k+8], 2)) for k in range(0, len(bin_text), 8))
+    return text
+
 def main():
     args = docopt.docopt(__doc__)
     input = args["--in"]
