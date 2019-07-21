@@ -1,14 +1,26 @@
+"""
+Usage:
+  test.py encode -i <input> -o <output> -t <text>
+  test.py decode -i <input>
+
+Options:
+  -h, --help                Show this help
+  -t, --text=<file>         Text to hide
+  -i, --in=<input>          Input video file
+  -o, --out=<output>        Resultant video file
+"""
+
 import cv2
 import docopt
 import numpy as np
 from PIL import Image
 
-class VideoID():
+class Video():
     def __init__(self, im):
         self.image = im
         self.width, self.height = im.size
 
-    def encode_bit(self, bit):ie
+    def encode_bit(self, bit):
         hsv_img = self.image.convert('HSV')
         pxl = hsv_img.load()
         if bit == '0':
@@ -29,3 +41,17 @@ class VideoID():
             return '0'
         else:
             return '1'
+
+def main():
+    args = docopt.docopt(__doc__)
+    input = args["--in"]
+    output = args["--out"]
+    text = args["--text"]
+
+    if args["encode"]:
+        encode_vid(input, output, text)
+    elif args["decode"]:
+        print(decode_vid(input))
+
+if __name__=="__main__":
+    main()
