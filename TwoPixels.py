@@ -49,11 +49,12 @@ def encode_vid(vid, result, text):
     bin_text = "".join(f"{ord(k):08b}" for k in text)
     bin_text = bin_text + "0010001100100011"
     i=0
+    a=""
     while(cap.isOpened()):
         ret, frame = cap.read()
         if not ret:
             break
-        if  i!=(len(bin_text)-1):
+        if  i!=(len(bin_text)):
             img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             pil_frame = Video(Image.fromarray(img))
             pil_frame_en = pil_frame.encode_bit(bin_text[i])
