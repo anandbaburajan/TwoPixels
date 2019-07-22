@@ -44,8 +44,9 @@ class Video():
 
 def encode_vid(vid, result, text):
     cap = cv2.VideoCapture(vid)
+    fps = cap.get(cv2.CAP_PROP_FPS)
     fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
-    out = cv2.VideoWriter(result, fourcc, 30.0, (int(cap.get(3)), int(cap.get(4))))
+    out = cv2.VideoWriter(result, fourcc, fps, (int(cap.get(3)), int(cap.get(4))))
     bin_text = "".join(f"{ord(k):08b}" for k in text)
     bin_text = bin_text + "0010001100100011"
     i=0
