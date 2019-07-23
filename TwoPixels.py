@@ -71,7 +71,6 @@ def encode_vid(vid, result, text):
 def decode_vid(vid):
     bin_text=""
     cap = cv2.VideoCapture(vid)
-    i=0
     while(cap.isOpened()):
         ret, frame = cap.read()
         if not ret:
@@ -80,7 +79,6 @@ def decode_vid(vid):
             img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             pil_frame = Video(Image.fromarray(img))
             bin_text = bin_text + pil_frame.decode_bit()
-            i+=1
         else:
             break
     cap.release()
