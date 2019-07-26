@@ -50,7 +50,6 @@ def encode_vid(vid, result, text):
     bin_text = "".join(f"{ord(k):08b}" for k in text)
     bin_text = bin_text + "0010001100100011"
     i=0
-    a=""
     while(cap.isOpened()):
         ret, frame = cap.read()
         if not ret:
