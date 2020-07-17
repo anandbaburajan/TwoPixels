@@ -31,11 +31,12 @@ Import as python module
 -------------
 
 ```python
-#encoding
-import TwoPixels as TP
-TP.encode_vid("video.mp4", "result.mp4", "Hello")
+# encoding
+>>> import TwoPixels as TP
+>>> TP.encode_vid("video.mp4", "result.mp4", "Hello")
 
-#decoding
-import TwoPixels as TP
-print(TP.decode_vid("video.mp4"))
+# decoding
+>>> import TwoPixels as TP
+>>> print(TP.decode_vid("result.mp4"))
+Hello
 ```
